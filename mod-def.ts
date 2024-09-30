@@ -10,13 +10,11 @@ export abstract class TK_Mod<T> {
     }
     
     routes(): Middleware {
-        return (ctx, next) => {
-            this.router.routes()(
-                ctx, async () => {
-                    await this.router.allowedMethods()(ctx, next);
-                }
-            )
-        }
+        return this.router.routes();
+    }
+    
+    allowedMethods(): Middleware {
+        return this.router.allowedMethods();
     }
 
     abstract upgradePassOut(): Promise<T> | T;
